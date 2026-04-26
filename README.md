@@ -89,78 +89,6 @@ A mother in rural Bihar with a sick child:
 
 ---
 
-## 🏗️ Architecture
-┌─────────────────────────────────────────────────────────────────────────────┐
-│ Databricks Free Edition │
-├─────────────────────────────────────────────────────────────────────────────┤
-│ │
-│ ┌──────────────────┐ ┌──────────────────┐ ┌──────────────────┐ │
-│ │ │ │ │ │ │ │
-│ │ 📁 10,000+ │───▶│ 🔍 Extraction │───▶│ 💾 Unity │ │
-│ │ Facility │ │ Agent │ │ Catalog │ │
-│ │ Records (Excel) │ │ │ │ (Delta) │ │
-│ │ │ │ │ │ │ │
-│ └──────────────────┘ └────────┬─────────┘ └──────────────────┘ │
-│ │ │
-│ ▼ │
-│ ┌──────────────────┐ │
-│ │ │ │
-│ │ 🌐 Tavily API │ (Web Validation) │
-│ │ (Optional) │ │
-│ │ │ │
-│ └────────┬─────────┘ │
-│ │ │
-│ ▼ │
-│ ┌──────────────────┐ ┌──────────────────┐ ┌──────────────────┐ │
-│ │ │ │ │ │ │ │
-│ │ 🔧 Validator │◀───│ 📊 Trust │───▶│ 🗺️ Medical │ │
-│ │ Agent │ │ Scorer │ │ Desert │ │
-│ │ (Self-Correct) │ │ (Bootstrap CI) │ │ Mapper │ │
-│ │ │ │ │ │ │ │
-│ └──────────────────┘ └──────────────────┘ └──────────────────┘ │
-│ │
-│ ┌──────────────────────────────────────────────────────────────────────┐ │
-│ │ 📈 MLflow 3 Tracing (Every Span) │ │
-│ │ [Extraction] → [Tavily] → [Trust Scoring] → [Validation] → [Output] │ │
-│ └──────────────────────────────────────────────────────────────────────┘ │
-│ │
-└─────────────────────────────────────────────────────────────────────────────┘┌─────────────────────────────────────────────────────────────────────────────┐
-│ Databricks Free Edition │
-├─────────────────────────────────────────────────────────────────────────────┤
-│ │
-│ ┌──────────────────┐ ┌──────────────────┐ ┌──────────────────┐ │
-│ │ │ │ │ │ │ │
-│ │ 📁 10,000+ │───▶│ 🔍 Extraction │───▶│ 💾 Unity │ │
-│ │ Facility │ │ Agent │ │ Catalog │ │
-│ │ Records (Excel) │ │ │ │ (Delta) │ │
-│ │ │ │ │ │ │ │
-│ └──────────────────┘ └────────┬─────────┘ └──────────────────┘ │
-│ │ │
-│ ▼ │
-│ ┌──────────────────┐ │
-│ │ │ │
-│ │ 🌐 Tavily API │ (Web Validation) │
-│ │ (Optional) │ │
-│ │ │ │
-│ └────────┬─────────┘ │
-│ │ │
-│ ▼ │
-│ ┌──────────────────┐ ┌──────────────────┐ ┌──────────────────┐ │
-│ │ │ │ │ │ │ │
-│ │ 🔧 Validator │◀───│ 📊 Trust │───▶│ 🗺️ Medical │ │
-│ │ Agent │ │ Scorer │ │ Desert │ │
-│ │ (Self-Correct) │ │ (Bootstrap CI) │ │ Mapper │ │
-│ │ │ │ │ │ │ │
-│ └──────────────────┘ └──────────────────┘ └──────────────────┘ │
-│ │
-│ ┌──────────────────────────────────────────────────────────────────────┐ │
-│ │ 📈 MLflow 3 Tracing (Every Span) │ │
-│ │ [Extraction] → [Tavily] → [Trust Scoring] → [Validation] → [Output] │ │
-│ └──────────────────────────────────────────────────────────────────────┘ │
-│ │
-└─────────────────────────────────────────────────────────────────────────────┘
-
-
 ### Agent Workflow
 Step 1: Parse unstructured text
 Input: "24/7 emergency services with ICU and surgical facilities"
@@ -249,14 +177,3 @@ def calculate_trust_score(self, extracted_data, raw_text):
     ci_lower, ci_upper = np.percentile(bootstrap_scores, [5, 95])
     
     return TrustScore(overall=base_score, ci_lower=ci_lower, ci_upper=ci_upper)
-
-hacknation_hackathon/
-│
-├── Healthcare_agent.ipynb           # Main Databricks notebook (run this)
-├── Healthcare_agent.py              # Python module version
-├── architecture.txt                 # System architecture diagram
-├── medical_desert_risk_map.html     # Interactive medical desert map
-├── desert_risk_by_state.html        # State-level risk visualization
-├── README.md                        # This file
-│
-└── .gitignore                        # Excludes API keys and cache files
